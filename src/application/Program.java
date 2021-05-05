@@ -6,24 +6,26 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import etities.Product;
 import services.CalculationService;
 
 public class Program {
 
 	public static void main(String[] args) {
-		List<Integer> list = new ArrayList<>();
+		List<Product> list = new ArrayList<>();
 		
 		String path = "/home/kaio/Documentos/sample.txt";
 		
 		try(BufferedReader bf = new BufferedReader(new FileReader(path))){
 			String line = bf.readLine();
 			while(line != null) {
-				list.add(Integer.parseInt(line));
+				String [] fields = line.split(",");
+				list.add(new Product(fields[0], Double.parseDouble(fields[1])));
 				line = bf.readLine();
 			}
-			Integer x = CalculationService.max(list);
+			Product x = CalculationService.max(list);
 			
-			for(Integer item : list) {
+			for(Product item : list) {
 				System.out.print(item + ", ");
 			}
 			System.out.println();
